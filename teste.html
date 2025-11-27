@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensagens - DS Cobranças</title>
+    <link rel="stylesheet" href="/styles.css">
+    
+    <style>
+        .input-group .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-top: 8px; 
+        }
+        .input-group .checkbox-group label {
+            margin-left: 8px;
+            font-size: 0.9em;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="tabs">
+        <button class="tab-button active" onclick="openTab('renegociacao')">Renegociação</button>
+        <button class="tab-button" onclick="openTab('referencia')">Referência</button>
+        <button class="tab-button" onclick="openTab('juros')">Cálculo de Juros</button>
+    </div>
+
+    <div id="renegociacao" class="tab-content active">
+        <h2>Gerador de Renegociação</h2>
+        <div class="input-group">
+            <label for="nomeCliente">Nome do Cliente:</label>
+            <input type="text" id="nomeCliente" placeholder="Ex: João da Silva">
+        </div>
+        <div class="input-group">
+            <label for="numContratos">Nº de Contratos:</label>
+            <input type="number" id="numContratos" placeholder="Ex: 2">
+        </div>
+        <div class="input-group">
+            <label for="nomeLoja">Nome da Loja:</label>
+            <input type="text" id="nomeLoja" placeholder="Ex: Matriz">
+        </div>
+        <div class="input-group">
+            <label for="totalParcelas">Total de Parcelas:</label>
+            <input type="number" id="totalParcelas" placeholder="Ex: 10">
+        </div>
+        <div class="input-group">
+            <label for="parcelasAtraso">Parcelas em Atraso:</label>
+            <input type="number" id="parcelasAtraso" placeholder="Ex: 3" oninput="handleParcelasChange()">
+        </div>
+        <div class="input-group">
+            <label for="valorTotal">Valor Total do Débito:</label>
+            <input type="text" id="valorTotal" placeholder="Ex: 1.250,50">
+        </div>
+        <div class="input-group">
+            <label for="valorEntrada">Valor da Entrada:</label>
+            <input type="text" id="valorEntrada" placeholder="Ex: 300,00">
+            <div class="checkbox-group">
+                <input type="checkbox" id="semEntradaCheckbox" onchange="toggleEntrada()">
+                <label for="semEntradaCheckbox">À Vista / Sem Acordo</label>
+            </div>
+        </div>
+        <div class="button-group">
+            <button onclick="gerarMensagemRenegociacao()">Gerar Mensagem</button>
+            <button id="copyButtonRenegociacao" onclick="copiarTexto('mensagemRenegociacao')">Copiar Texto</button>
+        </div>
+        <textarea id="mensagemRenegociacao" readonly placeholder="A mensagem de renegociação aparecerá aqui..."></textarea>
+    </div>
+
+    <div id="referencia" class="tab-content">
+        <h2>Gerador de Mensagem de Referência</h2>
+        <div class="input-group">
+            <label for="nomeDevedor">Nome do Cliente (Devedor):</label>
+            <input type="text" id="nomeDevedor" placeholder="Ex: João da Silva">
+        </div>
+        <div class="input-group">
+            <label for="nomeReferencia">Nome da Referência:</label>
+            <input type="text" id="nomeReferencia" placeholder="Ex: Maria Souza">
+        </div>
+        <div class="button-group">
+            <button onclick="gerarMensagemReferencia()">Gerar Mensagem</button>
+            <button id="copyButtonReferencia" onclick="copiarTexto('mensagemReferencia')">Copiar Texto</button>
+        </div>
+        <textarea id="mensagemReferencia" readonly placeholder="A mensagem para a referência aparecerá aqui..."></textarea>
+    </div>
+
+    <div id="juros" class="tab-content">
+        <h2>Calculadora de Juros de Parcela</h2>
+        <div class="input-group">
+            <label for="valorOriginal">Valor Original da Parcela:</label>
+            <input type="number" id="valorOriginal" placeholder="Ex: 250.00">
+        </div>
+        <div class="input-group">
+            <label for="diaInicial">Data de Vencimento (Dia Inicial):</label>
+            <input type="text" id="diaInicial" placeholder="Cole a data aqui (ex: DD/MM/AAAA)">
+        </div>
+        <div class="input-group">
+            <label for="diaFinal">Data do Cálculo (Dia Final):</label>
+            <input type="text" id="diaFinal" placeholder="Cole a data aqui (ex: DD/MM/AAAA)">
+        </div>
+        <div class="button-group">
+             <button onclick="calcularJuros()">Calcular Valor</button>
+        </div>
+        <div id="resultadoJuros" style="display: none;"></div>
+    </div>
+</div>
+
+<script src="coisas.js">
+</script>
+
+</body>
+</html>
